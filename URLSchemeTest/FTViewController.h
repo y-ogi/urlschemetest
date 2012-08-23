@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FTViewController : UIViewController
+@interface FTViewController : UIViewController <UIWebViewDelegate>
+
+// IBOutlet
+@property (nonatomic, weak) IBOutlet UIWebView *webView;
 
 @end
