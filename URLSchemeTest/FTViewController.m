@@ -7,6 +7,7 @@
 //
 
 #import "FTViewController.h"
+#import "FTURLOpener.h"
 
 @interface FTViewController ()
 
@@ -28,7 +29,7 @@
     @"<html><body>"
     "<ul>"
     "   <li><a href=\"skype:\">Skype</a></li>"
-    "   <li><a href=\"connectpro://\">Adobe Connect</a></li>"
+    "   <li><a href=\"connectpro://[adobe connect url]\">Adobe Connect</a></li>"
     "</ul>"
     "</body></html>";
     [self.webView loadHTMLString:html baseURL:nil];
@@ -83,8 +84,10 @@
     NSLog(@"URL Scheme:%@", request.URL.scheme);
     NSLog(@"Can Open  :%@", canOpenURL? @"YES": @"NO");
     
-    if ([self isAppURLSchemeWithURL:request.URL]) {
-        [self openAppOrStoreWithURL:request.URL];
+    if ([[FTURLOpener sharedInstance] isAppURL:request.URL]) {
+        [[FTURLOpener sharedInstance] openURL:request.URL completion:^{
+            NSLog(@"Finish Finish Finish");
+        }];
         return NO;
     }
    
